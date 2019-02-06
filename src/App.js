@@ -15,16 +15,22 @@ class App extends Component {
   }
 
   //Método que reage por onClick 
-  switchNameHandler = (newName) => {
-    // console.log('Was Clicked!');
-    this.setState({
-      persons: [
-        // {name: 'Vinícius Nyari', age:'37', gender:'Male'},
-        {name: newName, age:'37', gender:'Male'},
-        {name: 'Lilian Cassia de Godoy Nyari', age:'41', gender:'Female'},
-        {name: 'Júlia de Godoy Nyari', age:'4', gender:'Female'},
-      ]
-    })
+  // switchNameHandler = (newName) => {
+  //   // console.log('Was Clicked!');
+  //   this.setState({
+  //     persons: [
+  //       // {name: 'Vinícius Nyari', age:'37', gender:'Male'},
+  //       {name: newName, age:'37', gender:'Male'},
+  //       {name: 'Lilian Cassia de Godoy Nyari', age:'41', gender:'Female'},
+  //       {name: 'Júlia de Godoy Nyari', age:'4', gender:'Female'},
+  //     ]
+  //   })
+  // }
+
+  deletePersonHandler = (personIndex) => {
+    const persons = this.state.persons;
+    persons.splice(personIndex,1);
+    this.setState({persons: persons});
   }
 
   //Método que reage por Evento
@@ -58,10 +64,11 @@ class App extends Component {
     if (this.state.showPersons){
       persons = (
         <div>
-          {this.state.persons.map(person => {
+          {this.state.persons.map((person, index) => {
                 return <Person 
                           name={person.name}
-                          age={person.age} />
+                          age={person.age} 
+                          click={()=> this.deletePersonHandler(index)}/>
               })
             }
         </div>  
