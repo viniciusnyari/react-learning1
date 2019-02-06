@@ -10,7 +10,8 @@ class App extends Component {
         {name: 'Vinícius', age:'37', gender:'Male'},
         {name: 'Lilian', age:'41', gender:'Female'},
         {name: 'Júlia', age:'4', gender:'Female'},
-      ]
+      ],
+      showPersons:false
   }
 
   //Método que reage por onClick 
@@ -37,6 +38,11 @@ class App extends Component {
     })
   }
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons:!doesShow});
+  }
+
   render() {
 
     const style = {
@@ -47,33 +53,43 @@ class App extends Component {
         cursor:'pointer'
     } ; 
 
+    let persons = null;
+
+    if (this.state.showPersons){
+      persons = (
+          <div>
+            <Person 
+              name={this.state.persons[0].name} 
+              age={this.state.persons[0].age} 
+              gender={this.state.persons[0].gender}>My hobbies: Soccer </Person>
+    
+            <Person 
+              name={this.state.persons[1].name} 
+              age={this.state.persons[1].age} 
+              gender={this.state.persons[1].gender}
+              click={this.switchNameHandler.bind(this,'VnscsLabs')}
+              changed = {this.nameChangeHandler}>My hobbies: Racing </Person>
+    
+            <Person 
+              name={this.state.persons[2].name} 
+              age={this.state.persons[2].age} 
+              gender={this.state.persons[2].gender}>My hobbies: Naná </Person> 
+          </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>Primeiro código em React.</h1>
         <p>Veja! Isso funciona!</p>
 
-        <button style={style} onClick={this.switchNameHandler.bind(this,'Vnscs')}>Switch Name</button>
+        <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
         
-        <div>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age} 
-            gender={this.state.persons[0].gender}>My hobbies: Soccer </Person>
+        {/* OLD Sample
+        {this.state.showPersons ? DIVHTL : Null} */}
 
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age} 
-            gender={this.state.persons[1].gender}
-            click={this.switchNameHandler.bind(this,'VnscsLabs')}
-            changed = {this.nameChangeHandler}>My hobbies: Racing </Person>
-
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age} 
-            gender={this.state.persons[2].gender}>My hobbies: Naná </Person> 
-
-        </div>
-
+        {persons}
+        
         {/*
         First Code...
         <Person name="Vinícius" age="37" gender="Male">My hobbies: Soccer </Person>
