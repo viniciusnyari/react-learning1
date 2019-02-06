@@ -14,19 +14,6 @@ class App extends Component {
       showPersons:false
   }
 
-  //Método que reage por onClick 
-  // switchNameHandler = (newName) => {
-  //   // console.log('Was Clicked!');
-  //   this.setState({
-  //     persons: [
-  //       // {name: 'Vinícius Nyari', age:'37', gender:'Male'},
-  //       {name: newName, age:'37', gender:'Male'},
-  //       {name: 'Lilian Cassia de Godoy Nyari', age:'41', gender:'Female'},
-  //       {name: 'Júlia de Godoy Nyari', age:'4', gender:'Female'},
-  //     ]
-  //   })
-  // }
-
   deletePersonHandler = (personIndex) => {
     const persons = [...this.state.persons];
     persons.splice(personIndex,1);
@@ -34,14 +21,19 @@ class App extends Component {
   }
 
   //Método que reage por Evento
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        {name: 'Vinicius', age:'37', gender:'Male'},
-        {name: event.target.value, age:'41', gender:'Female'},
-        {name: 'Júlia', age:'4', gender:'Female'},
-      ]
-    })
+  nameChangeHandler = (event, id) => {
+
+    const personIndex = this.state.persons.findIndex(p=> {
+      return p.id === id
+    });
+
+    const person = { ...this.state.persons[personIndex]};
+
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons })
   }
 
   togglePersonsHandler = () => {
@@ -69,7 +61,8 @@ class App extends Component {
                           name={person.name}
                           age={person.age} 
                           click={()=> this.deletePersonHandler(index)}
-                          key={person.id}/>
+                          key={person.id}
+                          changed={(event) => this.nameChangeHandler(event,person.id)}/>
               })
             }
         </div>  
@@ -83,17 +76,8 @@ class App extends Component {
 
         <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
         
-        {/* OLD Sample
-        {this.state.showPersons ? DIVHTL : Null} */}
-
         {persons}
-
-        {/*
-        First Code...
-        <Person name="Vinícius" age="37" gender="Male">My hobbies: Soccer </Person>
-        <Person name="Lili" age="41" gender="Female">My hobbies: Racing </Person>
-        <Person name="Julia" age="4" gender="Female">My hobbies: Naná </Person>
-        */}
+        
       </div>
     );
   }
