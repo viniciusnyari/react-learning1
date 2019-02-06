@@ -57,24 +57,14 @@ class App extends Component {
 
     if (this.state.showPersons){
       persons = (
-          <div>
-            <Person 
-              name={this.state.persons[0].name} 
-              age={this.state.persons[0].age} 
-              gender={this.state.persons[0].gender}>My hobbies: Soccer </Person>
-    
-            <Person 
-              name={this.state.persons[1].name} 
-              age={this.state.persons[1].age} 
-              gender={this.state.persons[1].gender}
-              click={this.switchNameHandler.bind(this,'VnscsLabs')}
-              changed = {this.nameChangeHandler}>My hobbies: Racing </Person>
-    
-            <Person 
-              name={this.state.persons[2].name} 
-              age={this.state.persons[2].age} 
-              gender={this.state.persons[2].gender}>My hobbies: Naná </Person> 
-          </div>
+        <div>
+          {this.state.persons.map(person => {
+                return <Person 
+                          name={person.name}
+                          age={person.age} />
+              })
+            }
+        </div>  
       );
     }
 
@@ -89,7 +79,7 @@ class App extends Component {
         {this.state.showPersons ? DIVHTL : Null} */}
 
         {persons}
-        
+
         {/*
         First Code...
         <Person name="Vinícius" age="37" gender="Male">My hobbies: Soccer </Person>
