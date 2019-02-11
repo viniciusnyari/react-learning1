@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import classes from './App.css';
-import Person from './Person/Person'
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import logo from '../img/logo.svg';
+import classes from '../containers/App.css';
+import Persons from '../components/Persons/Persons'
 
 class App extends Component {
 
@@ -50,17 +49,10 @@ class App extends Component {
     if (this.state.showPersons){
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
-                return <ErrorBoundary key={person.id}>
-                <Person 
-                          name={person.name}
-                          age={person.age} 
-                          click={()=> this.deletePersonHandler(index)}
-                          
-                          changed={(event) => this.nameChangeHandler(event,person.id)}/>
-                </ErrorBoundary>
-              })
-            }
+            <Persons 
+            persons={this.state.persons}  
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangeHandler}/>
         </div>  
       );
       btnClass = classes.Red;
