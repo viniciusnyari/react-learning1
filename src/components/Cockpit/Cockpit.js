@@ -4,7 +4,12 @@ import classes from './Cockpit.css'
 const cockpit = (props) => {
     useEffect(()=> {
         console.log('[Cockpit.js] useEffect');
-    });
+        setTimeout(()=> {
+            alert('Saved data to cloud!');
+        },1000);
+    //},[props.persons]); //Aqui ele emite esse alerta a cada vez que for alterada essa props.persons
+    },[]); //executa somente uma vez e no começo, depois não mostra mais
+// }); //emite a cada 1 sergundo
 
     const assignedClasses = [];
     let btnClass = '';
